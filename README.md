@@ -1,12 +1,18 @@
 # TODO App
 
-
-
 ## Getting started
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+For running mongoDB in the cloud (mongoDB Atlas):
+1. Create a cluster
+2. create user and password(registered in the .env file)
+3. choose the driver connection 
+
+But as we have to run the database locally:
+1. Install mongoDB
+2. brew start mongodb-community
+3. For checking the connection in shell: mongosh "mongodb+srv://cluster0.7m91o.mongodb.net/" --apiVersion 1 --username oscar
+
 
 ## Add your files
 

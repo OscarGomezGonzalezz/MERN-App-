@@ -1,10 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./dbConnection");
+const { ObjectId } = require('mongodb');
+
 
 const app = express();
 connectDB().then(client => {
-    const db = client.db("TODODB"); 
+    const db = client.db("TODODB"); //Creates the database if it does not exist, and the same with the collection
     const tasksCollection = db.collection("tasks");
 
     app.use(cors());
@@ -28,16 +30,29 @@ connectDB().then(client => {
         if (!description) return res.status(400).json({ error: "Task is required" });
         console.log("Received task:", description);
 
-        const newTodo = { description, completed: false };
+        const newTodo = { description, done: false };
         try { 
         const result = await tasksCollection.insertOne(newTodo);
-        res.status(201).json(result.ops[0]);
+        res.status(201).json(result);
         } catch(e){
             console.log(e)
-            res.status(500).json({ error: "Failed to add todo" });
+            res.status(500).json({ message: "Failed to add todo" });
         }
         } 
     );
+
+    app.delete("/tasks/:id", async (req, res) => {
+        const { id } = req.params;
+  
+        try {
+          const mongoId = new ObjectId(id);//mongo does not interpret ids like normal strings, but special objetcs
+          await tasksCollection.deleteOne({ _id: mongoId });
+          res.json({ message: "Deleted successfully" });
+          console.log("Deleted todo with id:", id);
+        } catch (error) {
+          res.status(500).json({ error: "Failed to delete todo" });
+        }
+      });
 
 
     app.listen(3500, () => console.log("Server running on port 3500"));
