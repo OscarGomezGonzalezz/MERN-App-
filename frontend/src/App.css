@@ -12,16 +12,35 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 100vw; /* Ensure full width */
+  flex-direction: column; /* Ensures proper centering */
 }
 
 .App {
   background-color: #ffffff;
-  padding: 20px;
+  padding: 45px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
   text-align: center;
+}
+.add-task{
+  display: flex;
+  align-items: center;
+  gap: 0px;
+}
+
+.add-task input {
+  height: 50px;
+  padding: 5px;
+  font-size: 1em; 
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-btn{
+  height: 50px;
 }
 
 h1 {
@@ -39,8 +58,11 @@ input[type="text"] {
   font-size: 1em;
 }
 
+.done-btn{
+  background-color: goldenrod;
+}
 button {
-  padding: 10px 15px;
+  padding: 5px 10px;
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -92,6 +114,9 @@ li button {
 
 li button:hover {
   background-color: #e53935;
+}
+li button:hover.done-btn {
+  background-color: darkgoldenrod;
 }
 
 /* Responsive Design */

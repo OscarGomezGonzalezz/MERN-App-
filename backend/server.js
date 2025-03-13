@@ -54,6 +54,23 @@ connectDB().then(client => {
         }
       });
 
+      app.patch("/tasks/:id", async (req, res) => {
+        const { id } = req.params;
+        const { done } = req.body;
+  
+        try {
+          const mongoId = new ObjectId(id);//mongo does not interpret ids like normal strings, but special objetcs
+          const result = await tasksCollection.updateOne({ _id: mongoId }, { $set: { done: done } });
+          if (result.matchedCount === 0) {
+            return res.status(404).json({ error: "Task not found" });
+          }
+          res.json({ message: "Task updated successfully" });
+          console.log("Updated todo with id:", id);
+        } catch (error) {
+          res.status(500).json({ error: "Failed to update todo" });
+        }
+      });
+
 
     app.listen(3500, () => console.log("Server running on port 3500"));
 

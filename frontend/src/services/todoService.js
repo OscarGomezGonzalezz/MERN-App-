@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3500/tasks'; // Dirección de tu API
+const API_URL = 'http://localhost:3500/tasks'; // Server API URL
 
 
 export const getTasks = async () => {
@@ -48,3 +48,19 @@ export const deleteTask = async (id) => {
   }
 };
 
+export const updateTask = async (id, updatedField) => {
+  try {
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedField),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to update todo');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error updating todo:', error);
+    throw error;
+  }
+};
