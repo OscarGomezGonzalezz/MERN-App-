@@ -130,3 +130,126 @@ li button:hover.done-btn {
     width: 70%;
   }
 }
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fc;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Login and Register container */
+.login-container, .register-container {
+  background-color: white;
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form elements */
+input {
+  width: 80%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Submit button */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 1.1em;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Link to Register or Login */
+p {
+  margin-top: 15px;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Error message */
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+/* Specific styles for RegisterPage */
+.register-container {
+  background-color: #f9f9f9;
+}
+
+.register-container input {
+  margin-bottom: 15px;
+}
+
+.register-container .error-message {
+  margin-top: 10px;
+  font-size: 1em;
+  color: red;
+}
+
+.register-container button {
+  margin-top: 20px;
+  font-size: 1.2em;
+  padding: 14px;
+  background-color: #28a745;
+}
+
+.register-container button:hover {
+  background-color: #218838;
+}
+
+/* Register page specific link */
+.register-container p {
+  margin-top: 20px;
+  font-size: 1em;
+}
+
+.register-container a {
+  font-weight: bold;
+}

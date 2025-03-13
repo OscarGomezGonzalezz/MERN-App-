@@ -3,12 +3,12 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const router = express.Router();
-const db = req.app.locals.db;//access to the local shared db
-const usersCollection = db.collection("users");
+
 
 router.post("/register", async (req, res) => {
     const { username, password } = req.body;
-
+    const db = req.app.locals.db;//access to the local shared db
+    const usersCollection = db.collection("users");
     if (!username || !password) {
       return res.status(400).json({ message: "Username and password are required" });
     }
@@ -28,7 +28,8 @@ router.post("/register", async (req, res) => {
 
   router.post("/login", async (req, res) => {
     const { username, password } = req.body;
-
+    const db = req.app.locals.db;//access to the local shared db
+    const usersCollection = db.collection("users");
     if (!username || !password) {
       return res.status(400).json({ message: "Username and password are required" });
     }
@@ -55,6 +56,8 @@ router.post("/register", async (req, res) => {
 
   //Not accesible fot the client, but for me for checking purposes
   router.get("/users", async (req, res) => {
+    const db = req.app.locals.db;//access to the local shared db
+    const usersCollection = db.collection("users");
     try {
       const users = await usersCollection.find().toArray();
       console.log("Users retrieved:", users);

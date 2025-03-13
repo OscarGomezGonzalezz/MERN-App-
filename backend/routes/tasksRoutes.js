@@ -2,8 +2,6 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 
 const router = express.Router();
-const db = req.app.locals.db;//access to the local shared db
-const tasksCollection = db.collection("tasks");
 
 // Middleware to verify JWT token
 const authenticate = async (req, res, next) => {
@@ -21,6 +19,9 @@ const authenticate = async (req, res, next) => {
 
 router.get("/", authenticate, async (req, res) => {
 
+const db = req.app.locals.db;//access to the local shared db
+const tasksCollection = db.collection("tasks");
+
     try {
     const tasks = await tasksCollection.find({ userId: req.user.userId }).toArray();//Filter by just the user's tasks
     console.log("Tasks retrieved:", tasks);
@@ -32,6 +33,9 @@ router.get("/", authenticate, async (req, res) => {
 });
 
 router.post("/", authenticate, async (req, res) => {
+
+const db = req.app.locals.db;//access to the local shared db
+const tasksCollection = db.collection("tasks");
     const { description } = req.body;
     if (!description) return res.status(400).json({ error: "Task is required" });
     console.log("Received task:", description);
@@ -49,6 +53,9 @@ router.post("/", authenticate, async (req, res) => {
 );
 
 router.delete("/:id", async (req, res) => {
+
+const db = req.app.locals.db;//access to the local shared db
+const tasksCollection = db.collection("tasks");
     const { id } = req.params;
 
     try {
@@ -62,6 +69,9 @@ router.delete("/:id", async (req, res) => {
   });
 
 router.patch("/:id", async (req, res) => {
+
+const db = req.app.locals.db;//access to the local shared db
+const tasksCollection = db.collection("tasks");
     const { id } = req.params;
     const { done } = req.body;
 

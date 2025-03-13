@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3500/api/auth/'; // Server API URL
+const API_URL = 'http://localhost:3500/api/auth'; // Server API URL
 
 export const registerUser = async (username, password) => {
   try {

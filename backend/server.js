@@ -3,7 +3,7 @@ const cors = require("cors");
 const connectDB = require("./dbConnection");
 
 const authRoutes = require("./routes/authRoutes");
-const todoRoutes = require("./routes/todoRoutes");
+const todoRoutes = require("./routes/tasksRoutes");
 
 
 const app = express();

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // State for holding error message
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -20,16 +21,17 @@ function LoginPage() {
       } 
       catch (error) {
         console.error("Error logging in", error);
+        setError("Invalid username or password.");
       }
     } else {
-      alert("Invalid credentials!");
+      setError("Please fill in both fields."); 
     }
   };
 
   return (
     <div className="login-container">
       <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} noValidate>
         <input
           type="text"
           placeholder="Username"
@@ -46,6 +48,8 @@ function LoginPage() {
         />
         <button type="submit">Login</button>
       </form>
+      {/* Show error message if it exists */}
+      {error && <div className="error-message">{error}</div>}
       <p>
         Don't have an account? <Link to="/register">Register here</Link>
       </p>
