@@ -33,11 +33,8 @@ router.post("/register", async (req, res) => {
     if (!username || !password) {
       return res.status(400).json({ message: "Username and password are required" });
     }
-
     try{
-
     const user = await usersCollection.findOne({ username });
-
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }

@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./dbConnection");
+require("dotenv").config();//Load the .env file
+
 
 const authRoutes = require("./routes/authRoutes");
 const todoRoutes = require("./routes/tasksRoutes");

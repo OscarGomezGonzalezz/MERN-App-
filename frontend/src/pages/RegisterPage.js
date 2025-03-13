@@ -28,7 +28,7 @@ function RegisterPage() {
       localStorage.setItem("token", data.token);
       navigate("/tasks"); // Redirect to task app after successful registration
     } catch (error) {
-      setError("Error registering user");
+      setError("Username already exists");
     }
   };
 
