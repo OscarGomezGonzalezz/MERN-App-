@@ -1,5 +1,8 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const { ObjectId } = require("mongodb");
+require("dotenv").config();
+
 
 const router = express.Router();
 
@@ -52,7 +55,7 @@ const tasksCollection = db.collection("tasks");
     } 
 );
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authenticate, async (req, res) => {
 
 const db = req.app.locals.db;//access to the local shared db
 const tasksCollection = db.collection("tasks");
@@ -68,7 +71,7 @@ const tasksCollection = db.collection("tasks");
     }
   });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", authenticate,async (req, res) => {
 
 const db = req.app.locals.db;//access to the local shared db
 const tasksCollection = db.collection("tasks");

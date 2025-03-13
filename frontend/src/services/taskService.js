@@ -7,6 +7,7 @@ export const getTasks = async () => {
   try {
     const response = await fetch(API_URL, {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: token,
       },
     });
@@ -46,6 +47,7 @@ export const deleteTask = async (id) => {
     const response = await fetch(`${API_URL}/${id}`, {
       method: 'DELETE',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: token,
       },
     });
