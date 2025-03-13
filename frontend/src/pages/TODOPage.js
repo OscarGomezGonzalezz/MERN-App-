@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import TodoApp from "./TodoApp";
+import TodoApp from "../components/TodoApp";
 
 function TODOPage() {
   const navigate = useNavigate();

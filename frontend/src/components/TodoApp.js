@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { getTasks, createTask, deleteTask, updateTask} from './services/todoService';
-import './App.css';
+import { getTasks, createTask, deleteTask, updateTask} from '../services/taskService';
+import '../App.css';
 
-function TODOApp() {
+function TodoApp() {
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState('');
 
