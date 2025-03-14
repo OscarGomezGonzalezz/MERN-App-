@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/authService";
 import { Link } from "react-router-dom";
@@ -9,6 +9,11 @@ function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(""); // State for holding error message
   const navigate = useNavigate();
+
+   // Clear token when the page loads
+   useEffect(() => {
+    localStorage.removeItem("token");
+  }, []);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -26,6 +31,7 @@ function RegisterPage() {
     try {
       const data = await registerUser(username, password);
       localStorage.setItem("token", data.token);
+      console.log("token", data.token);
       navigate("/tasks"); // Redirect to task app after successful registration
     } catch (error) {
       setError("Username already exists");

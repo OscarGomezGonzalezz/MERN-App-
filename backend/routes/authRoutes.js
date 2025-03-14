@@ -19,7 +19,8 @@ router.post("/register", async (req, res) => {
       }
       const hashedPassword = await bcrypt.hash(password, 10);
       const result = await usersCollection.insertOne({ username, password: hashedPassword });
-      res.status(201).json(result);
+      const token = jwt.sign({ userId: result.insertedId }, process.env.JWT_SECRET, { expiresIn: "1h" });
+      res.status(201).json({ token, user: { username } });
     } catch (error) {
       res.status(500).json({ error: "Failed to register user" });
     }

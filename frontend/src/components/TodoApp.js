@@ -6,6 +6,8 @@ function TodoApp() {
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState('');
 
+
+  const token = localStorage.getItem("token");
   // Cargar los TODOs cuando se monta el componente
   useEffect(() => {
     fetchTodos();
@@ -13,7 +15,7 @@ function TodoApp() {
 
   const fetchTodos = async () => {
     try {
-      const todosData = await getTasks();
+      const todosData = await getTasks(token);
       setTodos(todosData.slice(0, 9)); // Limit to 9 tasks for correct displaying purposes
     } catch (error) {
       console.error("Error loading todos", error);
@@ -23,7 +25,7 @@ function TodoApp() {
   const handleAddTask = async () => {
     if (task.trim()) {
       try {
-        await createTask(task);
+        await createTask(task, token);
         setTask(''); // Clean input
         fetchTodos(); // Reload tasks
       } catch (error) {
@@ -34,7 +36,7 @@ function TodoApp() {
 
   const handleDeleteTask = async (id) => {
     try {
-      await deleteTask(id);
+      await deleteTask(id, token);
       fetchTodos(); // Reload tasks
     } catch (error) {
       console.error("Error deleting task", error);
@@ -43,7 +45,7 @@ function TodoApp() {
 
   const handleUpdateTask = async (id) => {
     try {
-      await updateTask(id, {done: true});//Mark task as done
+      await updateTask(id, {done: true}, token);//Mark task as done
       fetchTodos(); // Reload tasks
     } catch (error) {
       console.error("Error updating task", error);

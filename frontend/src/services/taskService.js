@@ -1,9 +1,6 @@
 const API_URL = 'http://localhost:3500/api/tasks'; // Server API URL
 
-
-const token = localStorage.getItem("token");
-
-export const getTasks = async () => {
+export const getTasks = async (token) => {
   try {
     const response = await fetch(API_URL, {
       headers: {
@@ -22,7 +19,7 @@ export const getTasks = async () => {
   }
 };
 
-export const createTask = async (task) => {
+export const createTask = async (task, token) => {
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
@@ -42,7 +39,7 @@ export const createTask = async (task) => {
   }
 };
 
-export const deleteTask = async (id) => {
+export const deleteTask = async (id, token) => {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
       method: 'DELETE',
@@ -61,7 +58,7 @@ export const deleteTask = async (id) => {
   }
 };
 
-export const updateTask = async (id, updatedField) => {
+export const updateTask = async (id, updatedField, token) => {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
       method: 'PATCH',
