@@ -1,255 +1,201 @@
-/* General Styles */
+/* Reset básico para una mayor consistencia entre navegadores */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Estilos globales */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+  color: #333;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw; /* Ensure full width */
-  flex-direction: column; /* Ensures proper centering */
+  padding: 20px;
 }
 
+/* Contenedor principal de la app */
 .App {
-  background-color: #ffffff;
-  padding: 45px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
-  text-align: center;
-}
-.add-task{
-  display: flex;
-  align-items: center;
-  gap: 0px;
-}
-
-.add-task input {
-  height: 50px;
-  padding: 5px;
-  font-size: 1em; 
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.add-btn{
-  height: 50px;
-}
-
-h1 {
-  color: #333;
-  margin-bottom: 20px;
-  font-size: 2em;
-}
-
-input[type="text"] {
-  width: 80%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1em;
-}
-
-.done-btn{
-  background-color: goldenrod;
-}
-button {
-  padding: 5px 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1em;
-  margin-left: 10px;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 20px;
-}
-
-li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #fafafa;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-li span {
-  flex-grow: 1;
-  cursor: pointer;
-}
-
-li span.completed {
-  text-decoration: line-through;
-  color: #888;
-}
-
-li button {
-  background-color: #f44336;
-  padding: 6px 10px;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-}
-
-li button:hover {
-  background-color: #e53935;
-}
-li button:hover.done-btn {
-  background-color: darkgoldenrod;
-}
-
-/* Responsive Design */
-@media (max-width: 500px) {
-  .App {
-    width: 90%;
-    padding: 15px;
-  }
-
-  input[type="text"] {
-    width: 70%;
-  }
-}
-/* Global styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f7fc;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-/* Login and Register container */
-.login-container, .register-container {
-  background-color: white;
-  width: 100%;
-  max-width: 400px;
+  max-width: 600px;
+  background-color: #fff;
+  border-radius: 12px;
   padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.App h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #2f3e46;
+}
+
+/* Estilo para contenedores de Login y Register */
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  padding: 30px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-h2 {
-  font-size: 2em;
+.login-container h2 {
   margin-bottom: 20px;
-  color: #333;
+  font-size: 1.8rem;
+  color: #2f3e46;
 }
 
-/* Form elements */
-input {
-  width: 80%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1em;
+/* Estilos de formulario */
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-input:focus {
-  border-color: #007bff;
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  padding: 12px 15px;
+  border: 1px solid #ccd6dd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+  border-color: #1d3557;
   outline: none;
 }
 
-/* Submit button */
-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #007bff;
+/* Botones generales */
+button{
+  padding: 12px 20px;
   border: none;
-  color: white;
-  font-size: 1.1em;
-  border-radius: 4px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 1rem;
+  background-color: #457b9d;
   cursor: pointer;
-  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+button.done-btn{
+  background-color: #457b9d
+}
+button.add-btn{
+  background-color: green
 }
 
-button:hover {
-  background-color: #0056b3;
+button.add-btn:hover{
+  background-color: darkgreen;
+}
+button.delete-btn{
+  background-color: rgb(179, 4, 4)
+}
+button:hover,
+.done-btn:hover {
+  background-color: #1d3557;
+}
+button.delete-btn:hover{
+  background-color: darkred
 }
 
-/* Link to Register or Login */
-p {
-  margin-top: 15px;
+/* Estilo para enlaces dentro de contenedores */
+.login-container p {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #555;
 }
 
-a {
-  color: #007bff;
+.login-container p a {
+  color: #457b9d;
   text-decoration: none;
+  font-weight: bold;
 }
 
-a:hover {
+.login-container p a:hover {
   text-decoration: underline;
 }
 
-/* Error message */
+/* Mensajes de error */
 .error-message {
-  color: red;
-  margin-top: 10px;
-  font-size: 0.9em;
-  text-align: center;
+  background-color: #ffdddd;
+  border: 1px solid #ff5c5c;
+  color: #a70000;
+  padding: 10px;
+  border-radius: 6px;
+  margin-top: 15px;
 }
 
-/* Specific styles for RegisterPage */
-.register-container {
-  background-color: #f9f9f9;
+/* Sección de tareas */
+.add-task {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.register-container input {
-  margin-bottom: 15px;
+.add-task input[type="text"] {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #ccd6dd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
-.register-container .error-message {
-  margin-top: 10px;
-  font-size: 1em;
-  color: red;
+.add-task input[type="text"]:focus {
+  border-color: #1d3557;
+  outline: none;
 }
 
-.register-container button {
-  margin-top: 20px;
-  font-size: 1.2em;
-  padding: 14px;
-  background-color: #28a745;
+/* Lista de tareas */
+ul {
+  list-style: none;
 }
 
-.register-container button:hover {
-  background-color: #218838;
+ul li {
+  background-color: #f8f9fa;
+  margin-bottom: 10px;
+  padding: 12px 15px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.3s ease;
 }
 
-/* Register page specific link */
-.register-container p {
-  margin-top: 20px;
-  font-size: 1em;
+ul li:hover {
+  background-color: #e9ecef;
 }
 
-.register-container a {
-  font-weight: bold;
+ul li span {
+  flex: 1;
+  cursor: pointer;
+}
+
+ul li button {
+  margin-left: 10px;
+  font-size: 0.9rem;
+}
+
+/* Ajuste para dispositivos móviles */
+@media (max-width: 480px) {
+  .App,
+  .login-container {
+    padding: 20px;
+  }
+
+  .login-container h2 {
+    font-size: 1.6rem;
+  }
+
+  .App h1 {
+    font-size: 1.8rem;
+  }
 }
