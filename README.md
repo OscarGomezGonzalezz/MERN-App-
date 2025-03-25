@@ -1,6 +1,9 @@
 # TODO App
 
 ## Getting started
+First of all, remove dependencies on both backend, and frontend and install yours:
+- rm -rf node_modules package-lock.json
+- npm install
 
 For running mongoDB in the cloud (mongoDB Atlas):
 1. Create a cluster
@@ -12,12 +15,17 @@ But as we have to run the database locally:
 2. brew start mongodb-community
 3. For checking the connection in shell: mongosh "mongodb+srv://cluster0.7m91o.mongodb.net/" --apiVersion 1 --username oscar
 
+IMPORTANT: WHEN TESTING IT WITH POSTMAN:
+Authorization: {token} <--- WITHOUT ADDING "Token" OR "Bearer" before the token itself
+
 Before inizialising the backend, we have to create a .env file, inside the /backend folder, with our secret key: JWT_SECRET=example
 For security reasons, add this file to the .gitignore
 
 Now, we can run the backend: 
 1. cd backend
 2. nodemon server.js
+
+
 
 Now, backend is ready for receiving requests from the frontend, so we run it with:
 1. cd ../frontend
