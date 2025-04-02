@@ -5,7 +5,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 //const uri = "mongodb+srv://user:password@cluster0.7m91o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 //URI al servicio de mongo en local
-const uri = "mongodb://localhost:27017/"; 
+const uri = "mongodb://host.docker.internal:27017/"; 
 
 // Create a MongoClient instance with options
 const client = new MongoClient(uri, {

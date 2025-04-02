@@ -1,0 +1,12 @@
+#docker must ignore dependencies(not copying them into the image) when creating an image, so that dependencies are installed in tthe container
+node_modules/
+package-lock.json
+
+.env
+.env.local
+.env.*.local
+.dockerignore
+Dockerfile
+.git/
+# IDE/editor settings
+.vscode/

@@ -1,9 +1,6 @@
 # TODO App
 
 ## Getting started
-First of all, remove dependencies on both backend, and frontend and install yours:
-- rm -rf node_modules package-lock.json
-- npm install
 
 For running mongoDB in the cloud (mongoDB Atlas):
 1. Create a cluster
@@ -31,17 +28,19 @@ Now, backend is ready for receiving requests from the frontend, so we run it wit
 1. cd ../frontend
 2. npm start
 
-## Test and Deploy
+## Task 2 ##
 
-Use the built-in continuous integration in GitLab.
+First, we migrate the backend to a docker container:
+1. for testing just the node server (mongo running locally not in container), the uri should be:
+- docker build -t test .
+- docker run -d -p 3500:3500 test
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+Update dbConnection.js with: 
+- const uri = "mongodb://host.docker.internal:27017/"; 
 
-***
+2. Once we know node image is working, we migrate the database to a container, for so, instead of 
+   creating another dockerfile for the db, we will directly create it in the .yml file 
+
 
 ## Description
 
