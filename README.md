@@ -1,6 +1,6 @@
 # TODO App
 
-## Getting started
+## Task 1 ##
 
 For running mongoDB in the cloud (mongoDB Atlas):
 1. Create a cluster
@@ -40,6 +40,18 @@ Update dbConnection.js with:
 
 2. Once we know node image is working, we migrate the database to a container, for so, instead of 
    creating another dockerfile for the db, we will directly create it in the .yml file 
+
+- minikube start --driver=docker
+- kubectl apply -f mongo-secret.yaml 
+
+Interesting cmd: docker buildx build --platform linux/amd64,linux/arm64 -t your-dockerhub-username/your-image-name:tag . --push
+
+After changing smth: 
+- kubectl delete configmap --all y asi con el resto
+
+
+
+
 
 
 ## Description
