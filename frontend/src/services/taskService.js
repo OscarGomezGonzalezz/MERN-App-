@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3500/api/tasks'; // Server API URL
+const API_URL = 'http://node-service:3500/api/tasks';
 
 export const getTasks = async (token) => {
   try {

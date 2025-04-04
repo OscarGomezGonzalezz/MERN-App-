@@ -59,8 +59,16 @@ d. kubectl apply -f node/
 Now we have to export that service to our machine for testing it:
 - minikube service node-service 
 
-6. todo: fix return of server when register(it works but error when preparing token, and same when login)
-integrate frontend 
+6. Once full backend is tested and works, we have to integrate frontend. Before everything, we have to understand:
+
+In task 1, When you run npm start, React uses Vite, webpack-dev-server, or React Scripts, depending on your setup.
+This development server runs by default on localhost:3000 (unless it's taken).
+It's only used during development and is not included in your production Docker image
+
+When you do this in the Dockerfile:
+RUN npm run build
+It generates a static build of your React app in /build. Then, Nginx serves those files — and Nginx typically listens on port 80 inside the container.
+
 
 After changing smth: 
 - kubectl logs -l app=node-server
