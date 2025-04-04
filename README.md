@@ -39,19 +39,32 @@ Update dbConnection.js with:
 - const uri = "mongodb://host.docker.internal:27017/"; 
 
 2. Once we know node image is working, we migrate the database to a container, for so, instead of 
-   creating another dockerfile for the db, we will directly create it in the .yml file 
+   creating another dockerfile for the db, we will directly create it in the .yaml files /mongo 
 
+3. Then, we change the uri of the dbConnection.js to process.env ones, as these are defined in the web-app.yaml.
+Lets build and push the image of our node server with:
+- docker buildx build --platform linux/amd64,linux/arm64 -t your-dockerhub-username/your-image-name:tag . --push
+
+4. You have to set the image used in the web-app.yaml to your-dockerhub-username/your-image-name:tag and also
+ set the env linked to your mongo-secret and mongo-config, where you will have to indicate your credentials in base64
+ Also Delete the .env file, just in case it interferes with process.env
+
+5. Test everything with:
 - minikube start --driver=docker
-- kubectl apply -f mongo-secret.yaml 
+a. kubectl apply -f mongo-secret.yaml 
+b. kubectl apply -f mongo-config.yaml 
+c. kubectl apply -f mongo/
+d. kubectl apply -f node/ 
 
-Interesting cmd: docker buildx build --platform linux/amd64,linux/arm64 -t your-dockerhub-username/your-image-name:tag . --push
+Now we have to export that service to our machine for testing it:
+- minikube service node-service 
+
+6. todo: fix return of server when register(it works but error when preparing token, and same when login)
+integrate frontend 
 
 After changing smth: 
+- kubectl logs -l app=node-server
 - kubectl delete configmap --all y asi con el resto
-
-
-
-
 
 
 ## Description

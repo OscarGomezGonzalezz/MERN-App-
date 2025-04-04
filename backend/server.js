@@ -14,7 +14,10 @@ connectDB().then(client => {
     app.locals.db = db;  // Attach db to app locals so routes can access it
 
 
-    app.use(cors());
+    app.use(cors(
+        //{origin: 'http://localhost:3000',  // Replace with your frontend URL
+        //methods: ['GET', 'POST', 'PUT', 'DELETE'],}
+    ));
     app.use(express.json());
 
     app.use("/api/auth", authRoutes);

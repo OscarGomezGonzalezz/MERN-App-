@@ -19,9 +19,12 @@ router.post("/register", async (req, res) => {
       }
       const hashedPassword = await bcrypt.hash(password, 10);
       const result = await usersCollection.insertOne({ username, password: hashedPassword });
+      console.log("key:", process.env.MONGO_SECRET_KEY);
       const token = jwt.sign({ userId: result.insertedId }, process.env.JWT_SECRET, { expiresIn: "1h" });
+      console.log("token:", token)
       res.status(201).json({ token, user: { username } });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error: "Failed to register user" });
     }
   }

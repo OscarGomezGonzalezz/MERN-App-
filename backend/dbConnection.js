@@ -5,10 +5,14 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 //const uri = "mongodb+srv://user:password@cluster0.7m91o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 //URI al servicio de mongo en local
-const uri = "mongodb://host.docker.internal:27017/"; 
 
+const uri = process.env.MONGO_URL;
+const mongoUser = process.env.MONGO_USER;
+const mongoPassword = process.env.MONGO_PASSWORD;
+// Update the connection URI with authentication details
+const fullUri = `mongodb://${mongoUser}:${mongoPassword}@${uri}:27017`;
 // Create a MongoClient instance with options
-const client = new MongoClient(uri, {
+const client = new MongoClient(fullUri, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
