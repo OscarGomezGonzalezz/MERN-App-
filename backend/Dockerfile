@@ -26,6 +26,5 @@ RUN chown -R node:node /app
 #Remove privileged access switching to user node for security reasons
 USER node 
 
-EXPOSE 3500
 
-CMD ["node", "server.js"]
+CMD ["npm", "run", "start"]
