@@ -16,8 +16,14 @@ spec:
     spec:
       containers:
       - name: react-container
-        image: oscargomezgonzalezz/react:1.0.0
+        image: oscargomezgonzalezz/react:1.0.1
         ports:
         - containerPort: 3000
+        env:
+        - name: BACKEND_URL
+          valueFrom:
+            configMapKeyRef:
+              name: mongo-config
+              key: node-url
         
 

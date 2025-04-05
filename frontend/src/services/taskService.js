@@ -1,8 +1,9 @@
-const API_URL = 'http://node-service:3500/api/tasks';
+// const service = process.env.BACKEND_URL;
+// const fullUri = `http://${service}:3500/api/tasks`;
 
 export const getTasks = async (token) => {
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch('/api/tasks/', {
       headers: {
         'Content-Type': 'application/json',
         Authorization: token,
@@ -21,7 +22,7 @@ export const getTasks = async (token) => {
 
 export const createTask = async (task, token) => {
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch('/api/tasks/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -41,7 +42,7 @@ export const createTask = async (task, token) => {
 
 export const deleteTask = async (id, token) => {
   try {
-    const response = await fetch(`${API_URL}/${id}`, {
+    const response = await fetch(`/api/tasks/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -60,7 +61,7 @@ export const deleteTask = async (id, token) => {
 
 export const updateTask = async (id, updatedField, token) => {
   try {
-    const response = await fetch(`${API_URL}/${id}`, {
+    const response = await fetch(`/api/tasks/${id}`, {
       method: 'PATCH',
       headers: { 
         'Content-Type': 'application/json',

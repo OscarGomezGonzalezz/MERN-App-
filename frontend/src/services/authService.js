@@ -1,7 +1,11 @@
-const API_URL = 'http://node-service:3500/api/auth'; // Server API URL
+
+
+//const service = process.env.BACKEND_URL;
+//const fullUri = `http://${service}:3500/api/auth`;
+
 export const registerUser = async (username, password) => {
   try {
-    const response = await fetch(`${API_URL}/register`, {
+    const response = await fetch('/api/auth/register', {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +26,7 @@ export const registerUser = async (username, password) => {
 
 export const loginUser = async (username, password) => {
   try {
-    const response = await fetch(`${API_URL}/login`, {
+    const response = await fetch('/api/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

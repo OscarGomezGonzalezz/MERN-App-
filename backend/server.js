@@ -20,8 +20,11 @@ connectDB().then(client => {
     ));
     app.use(express.json());
 
-    app.use("/api/auth", authRoutes);
-    app.use("/api/tasks", todoRoutes);
+    app.use("/auth", authRoutes);
+    app.use("/tasks", todoRoutes);
+    app.get("/", (req, res) => {
+        res.send("Hello World");
+    })
 
     app.listen(3500, () => console.log("Server running on port 3500"));
 
