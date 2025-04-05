@@ -25,13 +25,14 @@ services:
       - react-service
     restart: always
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./nginx
     ports:
       - "3050:80"
+      #we set in default.conf the server nginx to listen to port 80, so we translate it to 3050 in localhost
   node-service:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: "./backend"
     volumes:
       - /app/node_modules

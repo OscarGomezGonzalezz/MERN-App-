@@ -55,13 +55,14 @@ RUN npm run build
 It generates a static build of your React app in /build. Then, Nginx serves those files — and Nginx typically listens on port 80 inside the container, but we will use 3000
 
 5. Now we create the default.conf of nginx, forwarding requests to services, to its inside containers ips and add it too to the docker-compose
-
+add also mongo-express for visualizaing db: ADMIN; PASS
 ### Production
 6. test it in production env by creating dockerfiles of production and adding other nginx inside frontend
 
 Lets build and push the image of our frontend and backend testing them with:
 - docker buildx build --platform linux/amd64,linux/arm64 -t your-dockerhub-username/your-image-name:tag . --push
 and then docker run
+
 
 ### Kubernetes
 
@@ -78,9 +79,6 @@ d. kubectl apply -f node/
 
 Now we have to export that service to our machine for testing it:
 - minikube service node-service 
-
-
-
 
 After changing smth: 
 - kubectl logs -l app=node-server
