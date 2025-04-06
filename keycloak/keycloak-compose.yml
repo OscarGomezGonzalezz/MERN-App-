@@ -12,13 +12,19 @@ services:
       #The env below are specific for the keycloak entrance console
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/demo/certs/localhostcert.pem
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/demo/certs/localhostkey.pem
+
     ports:
       - "8090:8080"
+      - "8043:8443"
     depends_on:
       postgres_keycloak_demo:
         condition: service_healthy
     networks:
       - keycloak_demo_dev_network
+    volumes:
+      - ./certs:/opt/keycloak/demo/certs # our local folder certs will be available for keycloak in the written route(inside the container)
   postgres_keycloak_demo:
     image: postgres:14.2
     command: postgres -c 'max_connections=200'

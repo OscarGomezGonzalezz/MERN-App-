@@ -84,6 +84,14 @@ After changing smth:
 - kubectl logs -l app=node-server
 - kubectl delete configmap --all y asi con el resto
 
+### TLS/HTTPS To Keycloak
+
+openssl req -x509 -out localhostcert.pem -keyout localhostkey.pem \ 
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+
+when loading the secured page: https://localhost:8043, we will have to set our local certificate as trusted
 
 ## Description
 
