@@ -1,6 +1,25 @@
-# TODO App
+# TODO List App
 
-## Task 1 ##
+## Index
+
+- [Introduction](#introduction)
+- [Task 1: Local development with MongoDB and React](#task-1-local-development-with-mongodb-and-react)
+- [Task 2](#task-2)
+  - [Development](#development)
+  - [Production](#production)
+  - [Kubernetes](#kubernetes)
+  - [TLS/HTTPS To Keycloak](#tlshttps-to-keycloak)
+- [Description](#description)
+
+---
+
+## Introduction
+
+TODO List App with session management. Built using React for the frontend and Node.js for the backend with MongoDB. This guide covers local development, containerization with Docker, Kubernetes deployment, and HTTPS setup via Keycloak.
+
+---
+
+## Task 1: Local development with mongodb and react##
 
 For running mongoDB in the cloud (mongoDB Atlas):
 1. Create a cluster
@@ -10,7 +29,7 @@ For running mongoDB in the cloud (mongoDB Atlas):
 But as we have to run the database locally:
 1. Install mongoDB
 2. brew start mongodb-community
-3. For checking the connection in shell: mongosh "mongodb+srv://cluster0.7m91o.mongodb.net/" --apiVersion 1 --username oscar
+3. For checking the connection in shell: mongosh "mongodb+srv://clusterxxxxxx" --apiVersion 1 --username username
 
 IMPORTANT: WHEN TESTING IT WITH POSTMAN:
 Authorization: {token} <--- WITHOUT ADDING "Token" OR "Bearer" before the token itself
@@ -22,8 +41,6 @@ Now, we can run the backend:
 1. cd backend
 2. nodemon server.js
 
-
-
 Now, backend is ready for receiving requests from the frontend, so we run it with:
 1. cd ../frontend
 2. npm start
@@ -31,6 +48,7 @@ Now, backend is ready for receiving requests from the frontend, so we run it wit
 ## Task 2 ##
 
 ### Development
+
 First, we migrate the backend to a docker container:
 1. for testing just the node server (mongo running locally not in container), the uri should be:
 - docker build -t test .
@@ -56,13 +74,14 @@ It generates a static build of your React app in /build. Then, Nginx serves thos
 
 5. Now we create the default.conf of nginx, forwarding requests to services, to its inside containers ips and add it too to the docker-compose
 add also mongo-express for visualizaing db: ADMIN; PASS
+
 ### Production
+
 6. test it in production env by creating dockerfiles of production and adding other nginx inside frontend
 
 Lets build and push the image of our frontend and backend testing them with:
 - docker buildx build --platform linux/amd64,linux/arm64 -t your-dockerhub-username/your-image-name:tag . --push
 and then docker run
-
 
 ### Kubernetes
 
@@ -96,6 +115,3 @@ when loading the secured page: https://localhost:8043, we will have to set our l
 ## Description
 
 TODO List App with user session management, made with React(npx create-react-app mi-app)for the frontend and Node + JS for the backend
-
-
-

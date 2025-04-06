@@ -2,7 +2,7 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 // MongoDB ATLAS URI
-//const uri = "mongodb+srv://user:password@cluster0.7m91o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+//const uri = "mongodb+srv://user:password@clusterxxxxxxxxxx/?retryWrites=true&w=majority&appName=xxxxx";
 
 //URI al servicio de mongo en local
 
