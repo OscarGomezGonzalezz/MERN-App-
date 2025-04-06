@@ -4,7 +4,7 @@
 
 - [Introduction](#introduction)
 - [Task 1: Local development with MongoDB and React](#task-1-local-development-with-mongodb-and-react)
-- [Task 2](#task-2)
+- [Task 2](#task-2-migrating-to-docker-compose-nginx-and-https-setup)
   - [Development](#development)
   - [Production](#production)
   - [Kubernetes](#kubernetes)
@@ -45,7 +45,7 @@ Now, backend is ready for receiving requests from the frontend, so we run it wit
 1. cd ../frontend
 2. npm start
 
-## Task 2 ##
+## Task 2: Migrating to docker-compose, nginx and HTTPS setup ##
 
 ### Development
 
@@ -103,7 +103,7 @@ After changing smth:
 - kubectl logs -l app=node-server
 - kubectl delete configmap --all y asi con el resto
 
-### TLS/HTTPS To Keycloak
+### TLS/HTTPS To Keycloak ###
 
 openssl req -x509 -out localhostcert.pem -keyout localhostkey.pem \ 
   -newkey rsa:2048 -nodes -sha256 \
