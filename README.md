@@ -103,7 +103,9 @@ After changing smth:
 - kubectl logs -l app=node-server
 - kubectl delete configmap --all y asi con el resto
 
-### TLS/HTTPS To Keycloak ###
+## TLS/HTTPS To Keycloak ##
+### Certf x.509 for HTTPS
+TODO: see how apply X.509 to digital firm
 
 openssl req -x509 -out localhostcert.pem -keyout localhostkey.pem \ 
   -newkey rsa:2048 -nodes -sha256 \
@@ -112,3 +114,58 @@ openssl req -x509 -out localhostcert.pem -keyout localhostkey.pem \
 
 when loading the secured page: https://localhost:8043, we will have to set our local certificate as trusted
 
+## Notes about Encryption and secure connections
+
+### 1WSSL (One-Way SSL) ###
+Means only the server is authenticated by the client (usually a browser or another service).
+This is what happens in most secure websites like https://google.com:
+1. The server shows its SSL/TLS certificate.
+2. The client (your browser) verifies it.
+3. If it's valid, a secure (encrypted) connection is established.
+
+Common usage: Public HTPPS websites
+
+### 2WSSL (Two-Way SSL) or Mutual TLS ###
+Means both the server and the client authenticate each other.
+
+1. The server presents its certificate (just like in 1WSSL).
+2. The client also presents its own certificate.
+3. The server verifies that the client's certificate is valid.
+4. If both are okay, the secure connection is established.
+
+Common usage: Private APIs, internal services
+
+### 🔐 X.509 Certificates ###
+These are the standard for public key certificates used in many cryptographic systems, including SSL/TLS. So when we talk about 1WSSL or 2WSSL, we're generally referring to X.509 certificates. These certificates contain:
+
+* A public key
+* Information about the entity (like the server or client)
+* A digital signature that confirms the certificate's authenticity.
+
+The certificate is issued by a Certificate Authority (CA), but you can also create self-signed certificates for testing purposes (like the ones I created earlier).
+
+### ✉️ What is S/MIME? ###
+It stands for Secure/Multipurpose Internet Mail Extensions. It’s a standard for sending encrypted and digitally signed emails using X.509 certificates.
+
+* Email Encryption: Encrypts the email content so only the intended recipient can read it. Prevents eavesdroppingª.
+* Digital Signature: Verifies that the email really came from the claimed sender. Ensures that the content hasn't been tamperedº with (message integrity).
+
+ª: Eavesdropping means someone secretly listens in on your communication 
+º: This means the message wasn't changed after it was sent.
+
+Each participant (sender and receiver) has an X.509 certificate with a public/private key pair.
+The public key is usually shared via email clients or directories.
+
+Example:
+You want to send Alice an encrypted email.
+Alice has an X.509 certificate with her public key.
+You use that key to encrypt the email.
+Only Alice, who has the matching private key, can decrypt it.
+
+It’s supported by most major email clients:
+
+Email Client	S/MIME Support
+Outlook	✅ Yes
+Apple Mail	✅ Yes
+Thunderbird	✅ Yes
+Gmail (web)	🚫 Not directly (needs 3rd party extension)
