@@ -2,9 +2,9 @@
 
 ## Index
 
-- [Introduction](#introduction)
+- [Description](#description)
 - [Task 1: Local development with MongoDB and React](#task-1-local-development-with-mongodb-and-react)
-- [Task 2](#task-2-migrating-to-docker-compose-nginx-and-https-setup)
+- [Task 2: Migrating to docker-compose, nginx and HTTPS setup](#task-2-migrating-to-docker-compose-nginx-and-https-setup)
   - [Development](#development)
   - [Production](#production)
   - [Kubernetes](#kubernetes)
@@ -13,9 +13,9 @@
 
 ---
 
-## Introduction
+## Description
 
-TODO List App with session management. Built using React for the frontend and Node.js for the backend with MongoDB. This guide covers local development, containerization with Docker, Kubernetes deployment, and HTTPS setup via Keycloak.
+TODO List App (MERN) with session management. Built using React for the frontend and Node.js for the backend with MongoDB. This guide covers local development, containerization with Docker, Kubernetes deployment, and HTTPS setup via Keycloak.
 
 ---
 
@@ -45,7 +45,7 @@ Now, backend is ready for receiving requests from the frontend, so we run it wit
 1. cd ../frontend
 2. npm start
 
-## Task 2: Migrating to docker-compose, nginx and HTTPS setup ##
+## Task 2: Migrating to docker-compose, nginx and HTTPS setup##
 
 ### Development
 
@@ -112,6 +112,3 @@ openssl req -x509 -out localhostcert.pem -keyout localhostkey.pem \
 
 when loading the secured page: https://localhost:8043, we will have to set our local certificate as trusted
 
-## Description
-
-TODO List App with user session management, made with React(npx create-react-app mi-app)for the frontend and Node + JS for the backend
