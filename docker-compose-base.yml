@@ -1,0 +1,52 @@
+version: "3"
+services:
+  mongo-service:
+    image: "mongo:latest"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongouser
+      - MONGO_INITDB_ROOT_PASSWORD=mongopassword
+    ports:
+    - 27017:27017
+  #add mongo-express for visualizing the database. Aware of security vulneb  
+  mongo-express:
+    image: mongo-express:latest
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo-service
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=mongouser
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=mongopassword
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongo-service
+  nginx:
+    depends_on:
+      - node-service
+      - react-service
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "3050:80"
+      #we set in default.conf the server nginx to listen to port 80, so we translate it to 3050 in localhost
+  node-service:
+    build:
+      dockerfile: Dockerfile.dev
+      context: "./backend"
+    volumes:
+      - /app/node_modules
+      - ./backend:/app #link both directories
+    environment:
+      - MONGO_USER=mongouser
+      - JWT_SECRET=example
+      - MONGO_URL=mongo-service
+      - MONGO_PASSWORD=mongopassword
+  react-service:
+    stdin_open: true
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./frontend
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app

@@ -1,47 +1,56 @@
-version: "3"
 services:
-  mongo-service:
-    image: "mongo:latest"
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.3
+    command: start-dev #as we are not in production
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=mongouser
-      - MONGO_INITDB_ROOT_PASSWORD=mongopassword
-    ports:
-    - 27017:27017
-  #add mongo-express for visualizing the database. Aware of security vulneb  
-  mongo-express:
-    image: mongo-express:latest
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=mongo-service
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=mongouser
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=mongopassword
-      - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
-    ports:
-      - 8081:8081
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres_keycloak #linked to the postgres service
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+      KC_DB_SCHEMA: public
+      #The env below are specific for the keycloak entrance console
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_PROXY: edge
+      KC_HOSTNAME_ADMIN_URL: https://localhost:8443
+      KC_HOSTNAME_URL: https://localhost:8443
+
     depends_on:
-      - mongo-service
-  nginx:
-    depends_on:
-      - node-service
-      - react-service
-    restart: always
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./nginx
-    ports:
-      - "3050:80"
-      #we set in default.conf the server nginx to listen to port 80, so we translate it to 3050 in localhost
-  node-service:
-    build:
-      dockerfile: Dockerfile.dev
-      context: "./backend"
+      postgres_keycloak:
+        condition: service_healthy
+    networks:
+      - keycloak_nginx_dev_network
+    
+  postgres_keycloak:
+    image: postgres:14.2
+    command: postgres -c 'max_connections=200'
     volumes:
-      - /app/node_modules
-      - ./backend:/app #link both directories
+      - pgdata_keycloak:/var/lib/postgresql/data
     environment:
-      - MONGO_USER=mongouser
-      - JWT_SECRET=example
-      - MONGO_URL=mongo-service
-      - MONGO_PASSWORD=mongopassword
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - "5436:5432"
+    networks:
+      - keycloak_nginx_dev_network
+      
+  nginx:
+    build: ./nginx
+    depends_on:
+      - keycloak
+      - react-service
+      - node-service
+    restart: always
+    ports:
+      - '8080:80'
+      - '443:443'
+      - '8443:8443'
+    networks:
+      - keycloak_nginx_dev_network
   react-service:
     stdin_open: true
     build:
@@ -50,3 +59,39 @@ services:
     volumes:
       - /app/node_modules
       - ./frontend:/app
+    depends_on:
+      - keycloak
+    networks:
+      - keycloak_nginx_dev_network
+  node-service:
+    build:
+      dockerfile: Dockerfile.dev
+      context: "./backend"
+    volumes:
+      - /app/node_modules
+      - ./backend:/app #link both directories
+    depends_on:
+      - mongo-service
+    environment:
+      - MONGO_USER=mongouser
+      - JWT_SECRET=example
+      - MONGO_URL=mongo-service
+      - MONGO_PASSWORD=mongopassword
+    networks:
+      - keycloak_nginx_dev_network
+  mongo-service:
+    image: "mongo:latest"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongouser
+      - MONGO_INITDB_ROOT_PASSWORD=mongopassword
+    ports:
+    - 27017:27017
+    networks:
+      - keycloak_nginx_dev_network
+    
+
+volumes: 
+  pgdata_keycloak:
+networks:
+  keycloak_nginx_dev_network:
+    driver: bridge
