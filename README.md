@@ -9,7 +9,6 @@
   - [Production](#production)
   - [Kubernetes](#kubernetes)
   - [TLS/HTTPS To Keycloak](#tlshttps-to-keycloak)
-- [Description](#description)
 
 ---
 
